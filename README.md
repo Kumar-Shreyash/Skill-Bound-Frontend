@@ -1,183 +1,194 @@
-# Project Title
-Skill-Bound(Online Course Marketplace)
+# 🎓 Skill-Bound — Online Course Marketplace
 
-## Introduction
-Skill Bound is an innovative online learning platform designed to empower educators and learners by bridging the gap between skill acquisition and real-world application. With an intuitive dashboard for instructors and a seamless course management system, Skill Bound enables educators to create, update, and monitor courses with ease. The platform prioritizes dynamic content delivery, student engagement tracking, and personalized learning experiences — all while providing meaningful analytics to help instructors scale their impact. Whether you're a seasoned teacher or a budding mentor, Skill Bound equips you with the tools to shape the future of learning.
+Skill-Bound is a full-featured **online learning platform** designed to empower educators and learners. It bridges the gap between **skill acquisition and real-world application** by offering robust tools for instructors to create, update, and monitor dynamic course content — all within an intuitive, responsive interface.
 
-## Project Type
-Fullstack
+---
 
-## Deplolyed App
-Frontend: https://deployed-site.whatever
-Backend: https://deployed-site.whatever
-Database: https://deployed-site.whatever
+## 🚀 Project Type
 
+- **Full Stack Web Application**
 
-## Directory Structure
+---
+
+## 🌐 Live Demo
+
+- 🔗 **Frontend**: [https://skill-bound.netlify.app/](https://skill-bound.netlify.app/)  
+- 🔗 **Backend**: [https://skill-bound.onrender.com](https://skill-bound.onrender.com)  
+
+---
+
+## 🗂️ Directory Structure
+
 Skill-Bound/
 ├── backend/
-│   ├── config/
-│   │   └── db.config.js                   
-│   ├── controllers/
-│   │   ├── auth.controller.js            
-│   │   ├── course.controller.js        
-│   │   └── review.controller.js        
-│   ├── middlewares/
-│   │   └── auth.middleware.js         
-│   ├── models/
-│   │   ├── course.model.js                
-│   │   └── user.model.js                
-│   ├── routes/
-│   │   ├── auth.routes.js                 
-│   │   ├── course.routes.js              
-│   │   └── review.routes.js             
-│   └── server.js                          
-
+│ ├── config/
+│ ├── controllers/
+│ ├── middlewares/
+│ ├── models/
+│ ├── routes/
+│ └── server.js
+│
 ├── frontend/
-│   └── src/
-│       ├── assets/
-│       │   └── media/                    
-│       ├── components/
-│       │   ├── adminDashboard.jsx         
-│       │   ├── dashboardFooter.jsx        
-│       │   ├── dashboardNavbar.jsx        
-│       │   ├── footer.jsx                 
-│       │   ├── instructorDashboard.jsx    
-│       │   ├── landingPage.jsx            
-│       │   ├── login.jsx                  
-│       │   ├── navbar.jsx                 
-│       │   ├── signup.jsx                 
-│       │   ├── studentDashboard.jsx       
-│       ├── utils/
-│       │   └── utils.js                   
-│       ├── App.css                        
-│       ├── App.jsx                        
-│       └── main.jsx                       
+│ └── src/
+│ ├── assets/
+│ ├── components/
+│ ├── utils/
+│ ├── App.jsx
+│ ├── App.css
+│ └── main.jsx
 
 
-## Video Walkthrough of the project
+---
+
+## 📸 Screenshots
+
+> _Add your screenshots here in this section for each key feature/page._
+
+- **Landing Page**
+![Landing Page](./src/assets/screenshots/home.png)
+![Landing Page Course](./src/assets/screenshots/homeCour.png)
 
 
-## Video Walkthrough of the codebase
+- **Dashboard**
+![Dashboard](./src/assets/screenshots/dashboardCourses.png)
+![Dashboard Footer](./src/assets/screenshots/dashboardFooter.png)
 
-## Features
-The key features of Skill-Bound
-
-- Interactive Instructor Dashboard
-- Dynamic Course Builder
-- Course Editing & Updating
-- Student Engagement Metrics
-- Revenue Tracking
+- **Course Builder Modal**
+![Add Course Modal](./src/assets/screenshots/addCourse.png)
+![Update Course Modal](./src/assets/screenshots/updateCourse.png)
 
 
-## design decisions or assumptions
 
-- Modular Course Structure
-- Dedicated Instructor Dashboard
-- Clean & Responsive UI using Tailwind CSS
-- Form-Based Course Creation with Dynamic Inputs
-- API Integration with Axios
-- Single Modal for Add & Edit
-- Disable Submit Button During Edit
+---
 
-## Installation & Getting started
+## 🎥 Video Walkthrough
 
-```bash
-npm i
-cd my-project
-npm run dev(front-end)
-node server.js(backend)
-```
+- [🔗 Project Walkthrough](#)
 
-## Environment Variables
-    
-    PORT=3000
-    JWT_SECRET_KEY='shhhhh'
-    MONGO_URI="mongodb://127.0.0.1:27017/DeadEndDegrees"
-    MONGO_URI_CLOUD="mongodb+srv://shreyashsinha35:ErenYeager139@deadend-degrees.hvbjq91.mongodb.net/DeadEndDegrees?retryWrites=true&w=majority&appName=DeadEnd-Degrees"
+- [🔗 Codebase Overview](#)
 
-## Usage
---Login / Signup
-    -Navigate to the homepage.
+---
 
-    -Register 
+## 🛠️ Key Features
 
-    -Choose your role:
+- 🔧 Interactive Instructor Dashboard  
+- 🧩 Dynamic Course Builder with Modular Structure  
+- ✏️ Course Editing and Real-time Updates  
+- 📊 Student Engagement & Revenue Metrics  
+- 📚 Enrollments with Progress Tracking  
+- 🔍 Course Search, Filter, and Reviews  
+- 📹 Video Integration & Thumbnail Support  
 
-    -Instructor (to upload courses)
+---
 
-    -Learner (to browse and enroll)
+## 🎨 Design Decisions & Assumptions
 
-    -Login
- 
- --For Instructors
-    -Instructor Dashboard Overview
+- Modular Course & Lesson Creation
+- Responsive UI using Tailwind CSS
+- Single Modal for Add/Edit Course
+- Axios for all API requests
+- Clean, component-driven architecture
+- Local validation and backend integration
+- Disable submit during editing to prevent duplication
 
-    -Once logged in as an instructor, you’ll be taken to the Instructor Dashboard, where you can:
+---
 
-    -View total courses uploaded
+## 🧑‍💻 Installation & Getting Started
 
-    -Monitor total enrolled students
+# Install Dependencies
+cd frontend
+npm install
 
-    -Track revenue earned
+cd ../backend
+npm install
 
-    -See your top-performing course
+## Start Application 
 
---Click the "+ Add Course" button.
+# Start backend
+node server.js
 
-    -A modal form will appear where you can:
-
-    -Fill in course details (title, price, duration, etc.)
-
-    -Add a course thumbnail and intro video link
-
-    -Add modules with lessons (title, type, duration, and description)
-
-    -Add multiple modules and lessons dynamically
-
-    -Click Submit Course to publish it.
-
---Enrolling in a Course
-
-    -Click on a course to view more details.
-
-    -Click Enroll Now to register.
-
-    -Your profile will update with the course and its progress tracking.
+# Start Frontend
+cd frontend
+npm run dev
 
 
-## Credentials
-Learner-alice@a.com Password-123456
-Instructor-rajdeep@a.com Password-123456
+## 🔐 Environment Variables
 
-## API Endpoints
-POST auth/signup -Signing up
-POST auth/login -logging in
-POST course -adding course
-GET course -get all courses
-GET course/:id -get course by id or get all courses of a instructor
-PUT course/:id -updating the course
-DELETE course/:id -deleting the course
-POST course/enroll/:id -enrolling in a course
-GET course/search -searching course
-GET course/filter -filtering course
-POST review/:courseId -adding a review
-POST review/rate/courseId -rating the course
+PORT=3000
+JWT_SECRET_KEY=shhhhh
+MONGO_URI=mongodb://127.0.0.1:27017/DeadEndDegrees
+MONGO_URI_CLOUD=mongodb+srv://shreyashsinha35:ErenYeager139@deadend-degrees.hvbjq91.mongodb.net/DeadEndDegrees?retryWrites=true&w=majority&appName=DeadEnd-Degrees
 
-## Technology Stack
-A brief overview of the technologies used in the project.
 
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- Axios
-- Dotenv
-- Bcrypt
-- Jsonwebtoken
-- React
-- Tailwind
-- GSAP
-- React-dom
-- React-router-dom
-- React-icons
+## 🧪 Credentials for Testing
+
+| Role       | Email                               | Password |
+| ---------- | ----------------------------------- | -------- |
+| Learner    | [alice@a.com](mailto:alice@a.com)   | 123456   |
+| Instructor | [subham@a.com](mailto:subham@a.com) | 123456   |
+
+
+## 📡 API Endpoints
+
+# 🔑 Authentication
+
+POST /auth/signup – Register a user
+
+POST /auth/login – Login user
+
+# 📘 Courses
+
+POST /course – Add a new course
+
+GET /course – Get all courses
+
+GET /course/:id – Get course by ID or instructor
+
+PUT /course/:id – Update a course
+
+DELETE /course/:id – Delete a course
+
+POST /course/enroll/:id – Enroll in course
+
+GET /course/search – Search courses
+
+GET /course/filter – Filter courses
+
+# 🌟 Reviews & Ratings
+
+POST /review/:courseId – Add a review
+
+POST /review/rate/:courseId – Add rating
+
+## 🧰 Tech Stack
+
+# Frontend
+
+React.js
+
+Tailwind CSS
+
+React Router
+
+React Icons
+
+GSAP for animations
+
+Axios for API calls
+
+Vite for fast bundling
+
+
+# Backend
+
+Node.js
+
+Express.js
+
+MongoDB with Mongoose
+
+JWT for authentication
+
+Bcrypt for hashing passwords
+
+Dotenv for environment management
