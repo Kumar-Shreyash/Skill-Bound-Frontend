@@ -47,22 +47,42 @@ import { DashboardFooter } from "./dashboardFooter";
 import { DashboardNavbar } from "./dashboardNavbar";
 import { baseURL } from "../utils/utils";
 import { useEffect, useState } from "react";
+import { getCookie } from '../utils/cookies';
+import { useNavigate } from 'react-router-dom';
 
 export const StudentDashboard = () => {
   const [marketing, setMarketing] = useState([]);
   const [dev, setDev] = useState([]);
+  const [courses, setCourses]=useState([])
   const [coursesEnrolled, setCoursesEnrolled] = useState(0);
+  const [loading,setLoading]=useState(false)
+  const navigate=useNavigate()
+
+  useEffect(()=>{
+    if(!getCookie("refreshToken")){
+      navigate("/login")
+      return
+    }
+  },[])
+  
 
   async function fetchCourses() {
+    setLoading(true)
     try {
-      const marketingRes = await axios.get(`${baseURL}/course/68ab0eb1d8b1b39f98cbbff7`);
+      const marketingRes = await axios.get(`${baseURL}/course/68ab17636fd58d6fd38ef4ee`);
       setMarketing(marketingRes.data.course1);
       
-      const devRes = await axios.get(`${baseURL}/course/68ab0ef0d8b1b39f98cbbffd`);
+      const devRes = await axios.get(`${baseURL}/course/68ab04c2da89248b788aa42c`);
       setDev(devRes.data.course1);
+
+      const all= await axios.get(`${baseURL}/course`)
+      setCourses(all.data.courses)
+      // console.log(all.data.courses)
     } catch (error) {
       console.error("Failed to fetch courses:", error);
       alert(error.response?.data?.message || "Failed to fetch courses.");
+    }finally{
+      setLoading(false)
     }
   }
 
@@ -113,7 +133,7 @@ export const StudentDashboard = () => {
                 <CourseCard key={i} course={course} onEnroll={handleEnroll} />
               ))
             ) : (
-              <p className="text-gray-500">No digital marketing courses available at the moment.</p>
+              <p className="text-gray-500">{loading?"Loading...":"No digital marketing courses available at the moment."}</p>
             )}
           </div>
         </section>
@@ -127,7 +147,21 @@ export const StudentDashboard = () => {
                 <CourseCard key={i} course={course} onEnroll={handleEnroll} />
               ))
             ) : (
-              <p className="text-gray-500">No software development courses available at the moment.</p>
+              <p className="text-gray-500">{loading?"Loading...":"No software development courses available at the moment."}</p>
+            )}
+          </div>
+        </section>
+
+        {/* All Courses Section */}
+        <section>
+          <h2 className="text-3xl font-bold text-gray-700 mb-6 border-b-2 border-gray-300 pb-2">All Courses</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {courses.length > 0 ? (
+              courses.map((course, i) => (
+                <CourseCard key={i} course={course} onEnroll={handleEnroll} />
+              ))
+            ) : (
+              <p className="text-gray-500">{loading?"Loading...":"Something wrong sit tight and revise, while we fix this."}</p>
             )}
           </div>
         </section>

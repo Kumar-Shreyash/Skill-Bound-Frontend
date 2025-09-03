@@ -11,9 +11,16 @@ export const Signup = () => {
     const navigate=useNavigate()
 
     async function submitForm(e){
+        setErrorMessage("")
         e.preventDefault()
         // console.log(form)
         try {
+          // No signup with spaces only as passwords
+          if(form.password.trim()===""){
+            setErrorMessage("Please enter a valid password")
+            return
+          }
+          
             const signup=await axios.post(`${baseURL}/auth/signup`,form,{
                 headers:{
                     "Content-Type":"application/json"

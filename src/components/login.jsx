@@ -1,50 +1,62 @@
-
 import { Navbar } from "./navbar";
 import login from "../assets/login.webp";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { baseURL } from "../utils/utils";
+import { useAuth } from "./AuthContext";
+import { getCookie } from "../utils/cookies";
 
 export const Login = () => {
-const [form,setForm]=useState({email:"",password:""})
-const [errorMessage, setErrorMessage]=useState("")
-const navigate=useNavigate()
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+  const { setAccessToken } = useAuth();
 
-async function submitForm(e){
-    e.preventDefault()
+  async function submitForm(e) {
+    e.preventDefault();
     try {
-        let res= await axios.post(`${baseURL}/auth/login`,form,{
-            headers:{
-                "Content-Typ":"application/json"
-            }
-        })
-        const data=res.data
-        const userRole=data.user.role.toString()
-        const user=data.user
-        localStorage.setItem("user",JSON.stringify(user))
-        if(userRole==="student"){
-            navigate("/learner")
-        }else if(userRole==="instructor"){
-            navigate("/instructor")
-        }else if(userRole==="admin"){
-            navigate("/admin")
-        }
+      let res = await axios.post(`${baseURL}/auth/login`, form, {
+        headers: {
+          "Content-Typ": "application/json",
+        },
+      });
+      const data = res.data;
+      const userRole = data.user.role.toString();
+      const user = data.user;
+      const accessToken = data.accessToken;
+      const refreshToken = data.refreshToken;
+      // console.log(getCookie("refreshToken"))
+      // saving tokens
+      const now = new Date();
+      now.setTime(now.getTime() + 1000 * 60 * 24); // 24 hours
+      document.cookie = `refreshToken=${refreshToken}; expires=${now.toUTCString()}; path=/`;
+
+      // console.log(document.cookie.refreshToken);
+      setAccessToken(accessToken);
+
+      localStorage.setItem("user", JSON.stringify(user));
+      
+      if (userRole === "student") {
+        navigate("/learner");
+      } else if (userRole === "instructor") {
+        navigate("/instructor");
+      } else if (userRole === "admin") {
+        navigate("/admin");
+      }
     } catch (error) {
-        setErrorMessage(error.response.data.message || "Login Failed")
-        console.log(error.response.data.message)
-    } finally{
-        setForm({email:"",password:""})
+      setErrorMessage(error.response.data.message || "Login Failed");
+      console.log(error.response.data.message);
+    } finally {
+      setForm({ email: "", password: "" });
     }
-}
+  }
 
   return (
     <>
       <Navbar />
 
       <div className="w-[90%] max-w-7xl mx-auto mt-12 flex flex-col md:flex-row items-center gap-12 px-4 py-8">
-       
-       
         <img
           className="w-full md:w-1/2 h-auto rounded-lg shadow-lg"
           src={login}
@@ -60,14 +72,18 @@ async function submitForm(e){
           </p>
 
           <form className="grid gap-6" onSubmit={submitForm}>
-            <input value={form.email} onChange={(e)=>setForm({...form,email:e.target.value})}
+            <input
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
               className="border border-gray-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="email"
               placeholder="Enter your email"
               required
             />
 
-            <input value={form.password} onChange={(e)=>setForm({...form,password:e.target.value})}
+            <input
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
               className="border border-gray-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="password"
               placeholder="Enter your password"
@@ -83,12 +99,16 @@ async function submitForm(e){
           </form>
 
           {errorMessage && (
-            <div className="text-red-600 text-sm text-center mt-4">{errorMessage}</div>
-            )}
+            <div className="text-red-600 text-sm text-center mt-4">
+              {errorMessage}
+            </div>
+          )}
 
           <div className="text-sm text-center text-gray-500 mt-6">
             Don’t have an account?
-            <Link to={"/signup"} className="text-blue-600 hover:underline">Sign up here</Link>
+            <Link to={"/signup"} className="text-blue-600 hover:underline">
+              Sign up here
+            </Link>
           </div>
         </div>
       </div>

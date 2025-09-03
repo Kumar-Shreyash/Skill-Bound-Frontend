@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import { baseURL } from "../utils/utils";
 import { DashboardFooter } from "./dashboardFooter";
 import { FaUserGraduate, FaChartLine, FaDollarSign, FaStar, FaEdit, FaTrashAlt } from 'react-icons/fa';
+import { getCookie } from "../utils/cookies";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 export const InstructorDashboard = () => {
   const [totalCourses, setTotalCourses] = useState([]);
@@ -12,6 +15,15 @@ export const InstructorDashboard = () => {
   const [best, setBest] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const navigate=useNavigate()
+  const {accessToken}=useAuth()
+
+
+  useEffect(()=>{
+    if(!getCookie("refreshToken")){
+      navigate("/login")
+    }
+  },[])
 
   const [courseData, setCourseData] = useState({
     title: "",
@@ -68,10 +80,20 @@ export const InstructorDashboard = () => {
   
   async function handleUpdateCourse() {
     try {
+      console.log(accessToken,getCookie("refreshToken"))
+      console.log(JSON.parse(localStorage.getItem("courseId")))
       let id = JSON.parse(localStorage.getItem("courseId"));
+      let user=JSON.parse(localStorage.getItem("user"))
+      if(!id){
+        alert("No course found ")
+        return
+      }
       const res = await axios.put(`${baseURL}/course/${id}`, courseData, {
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "authorization": `Bearer ${accessToken}`,
+          "refreshtoken":`Bearer ${getCookie("refreshToken")}`,
+          "user":user._id
         }
       });
       alert(`Course updated successfully`);
@@ -82,6 +104,7 @@ export const InstructorDashboard = () => {
       alert(error.response?.data?.message || "An error occurred during update.");
     } finally {
       setIsEditing(false);
+      setShowForm(false)
     }
   }
 
@@ -161,7 +184,13 @@ export const InstructorDashboard = () => {
         ...courseData,
         keywords: courseData.keywords.split(',').map(k => k.trim())
       };
-      await axios.post(`${baseURL}/course`, payload);
+      await axios.post(`${baseURL}/course`, payload,{
+        headers:{
+          "Content-Type": "application/json",
+          "authorization": `Bearer ${accessToken}`,
+          "refreshtoken":`Bearer ${getCookie("refreshToken")}`
+        }
+      });
       alert(`${courseData.title} added successfully`);
       setCourseData({
         title: "",
