@@ -1,4 +1,3 @@
-
 import { DashboardNavbar } from "./dashboardNavbar";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -80,8 +79,8 @@ export const InstructorDashboard = () => {
   
   async function handleUpdateCourse() {
     try {
-      console.log(accessToken,getCookie("refreshToken"))
-      console.log(JSON.parse(localStorage.getItem("courseId")))
+      // console.log(accessToken,getCookie("refreshToken"))
+      // console.log(JSON.parse(localStorage.getItem("courseId")))
       let id = JSON.parse(localStorage.getItem("courseId"));
       let user=JSON.parse(localStorage.getItem("user"))
       if(!id){
