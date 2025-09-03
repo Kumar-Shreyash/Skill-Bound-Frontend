@@ -5,16 +5,20 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { baseURL } from "../utils/utils";
 import { getCookie } from "../utils/cookies";
+import { useAuth } from "./AuthContext";
 
 export const DashboardNavbar = () => {
     const [query, setQuery] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const user = JSON.parse(localStorage.getItem("user"));
     const navigate=useNavigate()
+    const {setAccessToken}=useAuth()
 
     useEffect(()=>{
         if(!getCookie("refreshToken")){
             navigate("/login")
+            setAccessToken("")
+            return
         }
     })
 
@@ -24,6 +28,7 @@ export const DashboardNavbar = () => {
 
     function handleLogout(){
         document.cookie = "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        setAccessToken("")
     }
 
     useEffect(() => {
