@@ -20,8 +20,8 @@ function App() {
       <Route path="/" element={<LandingPage/>}/>
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/login" element={<Login/>}/>
-      <Route path="/learner" element={<StudentDashboard/>}/>
-      <Route path="/instructor" element={<InstructorDashboard/>}/>
+      <Route path="/learner" element={getCookie("refreshToken")?<StudentDashboard/>: <Navigate to="/login" replace />}/>
+      <Route path="/instructor" element={getCookie("refreshToken")?<InstructorDashboard/>: <Navigate to="/login" replace />}/>
       <Route path="/admin" element={<AdminDashboard/>}/>
      </Routes>
     </>
