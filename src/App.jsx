@@ -9,6 +9,7 @@ import { Login } from './components/login'
 import { StudentDashboard } from './components/studentDashboard'
 import { InstructorDashboard } from './components/instructorDashboard'
 import { AdminDashboard } from './components/adminDashboard'
+import { getCookie } from './utils/cookies'
 
 
 function App() {
