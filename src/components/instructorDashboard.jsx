@@ -22,7 +22,7 @@ export const InstructorDashboard = () => {
     if(!getCookie("refreshToken")){
       navigate("/login")
     }
-  },[])
+  })
 
   const [courseData, setCourseData] = useState({
     title: "",

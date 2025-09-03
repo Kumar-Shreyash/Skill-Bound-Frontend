@@ -1,14 +1,22 @@
 import { gsap } from "gsap";
 import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { baseURL } from "../utils/utils";
+import { getCookie } from "../utils/cookies";
 
 export const DashboardNavbar = () => {
     const [query, setQuery] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const user = JSON.parse(localStorage.getItem("user"));
+    const navigate=useNavigate()
+
+    useEffect(()=>{
+        if(!getCookie("refreshToken")){
+            navigate("/login")
+        }
+    })
 
     const handleInputChange = (e) => {
         setQuery(e.target.value);

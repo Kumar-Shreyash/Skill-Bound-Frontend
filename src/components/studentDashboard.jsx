@@ -63,7 +63,7 @@ export const StudentDashboard = () => {
       navigate("/login")
       return
     }
-  },[])
+  })
   
 
   async function fetchCourses() {
