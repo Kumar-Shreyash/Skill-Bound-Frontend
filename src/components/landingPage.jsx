@@ -137,7 +137,7 @@ export const LandingPage = () => {
       <div id="page2" className="relative w-full overflow-hidden bg-gradient-to-br from-gray-950 via-gray-900 to-black py-20">
         <h2 className="text-center text-4xl font-bold text-white mb-10">Recently Added Courses</h2>
         <div className="scroll flex gap-8 w-max px-6">
-          {courses.map((ele, i) => (
+          {courses.slice(0,12).map((ele, i) => (
             <div
               key={i}
               className="p-10 w-full sm:min-w-[350px] lg:min-w-[450px] bg-gray-800 border border-gray-700 rounded-lg shadow-xl overflow-hidden text-gray-200 hover:shadow-2xl hover:cursor-pointer transition-all duration-300 transform hover:-translate-y-1"
